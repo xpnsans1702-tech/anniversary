@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>First Anniversary ❤️</title>
+<style>
+:root{
+  --bg:#12080d;--card:#211117;--soft:#f6dfe6;--pink:#ef9bb4;
+  --accent:#d85b7d;--gold:#e8c98f;--muted:#c9aeb7;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:radial-gradient(circle at 50% 0%,#4b182b 0,#12080d 45%,#090507 100%);
+  color:var(--soft);font-family:Georgia,"Times New Roman",serif;overflow-x:hidden
+}
+body.lock{overflow:hidden}
+canvas#stars{position:fixed;inset:0;z-index:-2}
+.glow{position:fixed;width:380px;height:380px;border-radius:50%;background:#ef668633;filter:blur(80px);z-index:-1;top:8%;left:50%;transform:translateX(-50%)}
+.cover{
+  position:fixed;inset:0;background:linear-gradient(#10070bdc,#10070bf2);
+  z-index:20;display:flex;align-items:center;justify-content:center;text-align:center;
+  transition:.9s ease;padding:24px
+}
+.cover.hide{opacity:0;pointer-events:none;transform:scale(1.05)}
+.envelope{max-width:650px}
+.smallcaps{letter-spacing:5px;text-transform:uppercase;color:var(--gold);font-size:11px}
+.cover h1{font-size:clamp(48px,11vw,90px);margin:18px 0 10px;color:#fff}
+.cover p{color:var(--muted);line-height:1.8;font-size:17px}
+.btn{
+  display:inline-block;border:1px solid #f1a6bc88;background:#d85b7d;
+  color:#fff;padding:14px 26px;border-radius:999px;text-decoration:none;cursor:pointer;
+  font-family:inherit;font-size:15px;box-shadow:0 10px 30px #d85b7d44;transition:.25s
+}
+.btn:hover{transform:translateY(-2px)}
+header{
+  min-height:100vh;display:flex;align-items:center;justify-content:center;
+  text-align:center;padding:40px 20px
+}
+.hero{max-width:850px}
+.hero .heart{font-size:55px;animation:pulse 1.8s infinite}
+@keyframes pulse{50%{transform:scale(1.18)}}
+h1.main{font-size:clamp(54px,12vw,120px);line-height:.86;margin:20px 0;color:#fff}
+.hero .subtitle{font-size:20px;line-height:1.8;color:#d9c2c9;max-width:680px;margin:auto}
+.date{margin:25px 0;color:var(--gold);letter-spacing:2px}
+section{padding:95px 20px}
+.wrap{max-width:1050px;margin:auto}
+.section-title{text-align:center;font-size:42px;margin:0 0 12px;color:#fff}
+.section-desc{text-align:center;color:var(--muted);max-width:650px;line-height:1.8;margin:0 auto 45px}
+.card{
+  background:linear-gradient(145deg,#29141d,#170b10);border:1px solid #ef9bb42a;
+  border-radius:28px;padding:32px;box-shadow:0 20px 60px #0008
+}
+.letter{font-size:19px;line-height:2;color:#eadbe0}
+.letter strong{color:#fff}
+.timeline{position:relative;max-width:800px;margin:auto}
+.timeline:before{content:"";position:absolute;left:18px;top:0;bottom:0;width:1px;background:#ef9bb455}
+.event{position:relative;padding:0 0 42px 60px}
+.dot{position:absolute;left:10px;top:3px;width:17px;height:17px;border-radius:50%;background:var(--accent);box-shadow:0 0 20px #ef6686}
+.event h3{margin:0 0 8px;color:var(--gold)}
+.event p{margin:0;color:#cdbbc1;line-height:1.7}
+.gallery{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px
+}
+.photo{
+  position:relative;aspect-ratio:4/5;border-radius:24px;overflow:hidden;
+  background:#29141d;border:1px solid #ef9bb433
+}
+.photo img{width:100%;height:100%;object-fit:cover;display:block;transition:.5s}
+.photo:hover img{transform:scale(1.04)}
+.photo .caption{
+  position:absolute;left:0;right:0;bottom:0;padding:35px 16px 16px;
+  background:linear-gradient(transparent,#080307e8);font-size:15px
+}
+.upload{text-align:center;margin-bottom:30px}
+input{display:none}
+.counter{
+  text-align:center;font-size:clamp(35px,8vw,70px);color:#fff;margin:20px 0
+}
+.counter span{display:inline-block;min-width:75px}
+.labels{font-size:11px;letter-spacing:2px;color:var(--muted)}
+.music{
+  position:fixed;right:18px;bottom:18px;z-index:10;width:52px;height:52px;
+  border-radius:50%;border:1px solid #ef9bb466;background:#241019;color:#fff;cursor:pointer
+}
+.final{text-align:center}
+.final .big{font-size:clamp(45px,9vw,90px);margin:0 0 20px;color:#fff}
+footer{text-align:center;padding:45px 20px;color:#8f747d}
+@media(max-width:600px){
+  section{padding:70px 16px}.card{padding:23px}.letter{font-size:17px}
+  .gallery{grid-template-columns:1fr 1fr;gap:12px}
+  .photo{border-radius:17px}.counter span{min-width:60px}
+}
+</style>
+</head>
+<body class="lock">
+
+<canvas id="stars"></canvas>
+<div class="glow"></div>
+
+<div class="cover" id="cover">
+  <div class="envelope">
+    <div class="smallcaps">A little surprise for you</div>
+    <h1>Untuk Kita ❤️</h1>
+    <p>
+      Ada sebuah halaman kecil yang dibuat khusus untuk menyimpan
+      satu tahun cerita, tawa, foto, dan semua kenangan yang tidak ingin dilupakan.
+    </p>
+    <button class="btn" onclick="openSite()">Buka untuk melihat ❤️</button>
+  </div>
+</div>
+
+<header>
+  <div class="hero">
+    <div class="heart">♥</div>
+    <div class="smallcaps">23 AGUSTUS 2025 — 23 AGUSTUS 2026</div>
+    <h1 class="main">One Year<br>Together</h1>
+    <p class="subtitle">
+      Satu tahun. Ratusan cerita. Ribuan senyuman.
+      Dan masih ingin menulis lebih banyak halaman bersama.
+    </p>
+    <div class="date">Happy 1st Anniversary ✨</div>
+    <a class="btn" href="#letter">Baca suratku ini ya sayang ↓</a>
+  </div>
+</header>
+
+<section id="letter">
+  <div class="wrap">
+    <h2 class="section-title">Untuk Kamu 💌</h2>
+    <p class="section-desc">Sebuah surat kecil yang bisa kamu baca.</p>
+    <div class="card letter">
+      <p>Untuk <strong>Kirana</strong>,</p>
+      <p>
+        Nggaa terasa yaa kita sudah sampai di satu tahun. Kalau mengingat kembali
+        semuanya, ada begitu banyak hal sederhana yang ternyata menjadi sangat berarti.
+      </p>
+      <p>
+        Terima kasih karena sudah hadir, menemani hari-hari, mendengarkan cerita,
+        dan menjadi bagian dari banyak momen yang ingin selalu aku ingat.
+      </p>
+      <p>
+        Aku tidak tahu seperti apa halaman berikutnya, tetapi aku berharap
+        kita masih bisa mengisinya dengan tawa, cerita, dan banyak kenangan baru.
+      </p>
+      <p>Selamat satu tahun untuk kita. ❤️</p>
+      <p>— <strong>Bahrul</strong></p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2 class="section-title">Perjalanan Kita ✨</h2>
+    <p class="section-desc">Sebuah awal dari kita .</p>
+    <div class="timeline">
+      <div class="event"><div class="dot"></div><h3>23 Agustus 2025 — Awal Cerita</h3><p>Hari ketika cerita kita resmi dimulai.</p></div>
+      <div class="event"><div class="dot"></div><h3>Hari-Hari Setelahnya</h3><p>Banyak cerita kecil, obrolan panjang, tawa, dan momen yang perlahan menjadi kenangan.</p></div>
+      <div class="event"><div class="dot"></div><h3>23 Agustus 2026 — Satu Tahun</h3><p>Hari ini kita melihat kembali semua perjalanan dan merayakan satu tahun kebersamaan.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="gallery">
+  <div class="wrap">
+    <h2 class="section-title">Your photo 📸</h2>
+    <p class="section-desc">Foto cantik kamu.</p>
+    <div class="upload">
+      <button class="btn" type="button" onclick="document.getElementById('galleryGrid').scrollIntoView({behavior:'smooth'})">
+    📸 Lihat Foto Cantik kamu
+</button>
+      <input id="photoInput" type="file" accept="image/*" multiple hidden>
+    </div>
+    <div class="gallery" id="galleryGrid">
+
+    <div class="photo">
+        <img src="f5068856-d34f-4356-adc0-122eef6f75ef.jpeg" alt="Foto kita">
+        <div class="caption"> ❤️</div>
+    </div>
+
+    <div class="photo">
+        <img src="9bea83f0-6e7d-4592-8951-7fbdd449a0c8.jpeg" alt="Foto kita">
+        <div class="caption"> 💕</div>
+    </div>
+
+    <div class="photo">
+        <img src="2ac951dd-aa7c-4abc-86df-b3bb22ebad50.jpeg" alt="Foto kita">
+        <div class="caption"> ✨</div>
+    </div>
+
+    <div class="photo">
+        <img src="a4057779-bf83-4684-aea4-b8c09d92be38.jpeg" alt="Foto kita">
+        <div class="caption"> 🥰</div>
+    </div>
+
+</div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap final">
+    <div class="smallcaps">And the story continues...</div>
+    <h2 class="big">I choose you,<br>again and again. ❤️</h2>
+    <p class="section-desc">
+      Semoga setelah satu tahun ini, masih ada banyak tahun berikutnya
+      yang bisa kita rayakan.
+    </p>
+  </div>
+</section>
+
+<button class="music" id="musicBtn" title="Musik">♫</button>
+<audio id="music" loop></audio>
+
+<script>
+function openSite(){
+  document.getElementById("cover").classList.add("hide");
+  document.body.classList.remove("lock");
+}
+
+/* Galeri foto */
+const input=document.getElementById("photoInput");
+const grid=document.getElementById("galleryGrid");
+let photoCount=0;
+
+function addPhoto(file){
+  if(!file.type.startsWith("image/")) return;
+  const url=URL.createObjectURL(file);
+  photoCount++;
+  const box=document.createElement("div");
+  box.className="photo";
+  box.innerHTML=`
+    <img src="${url}" alt="Kenangan ${photoCount}">
+    <div class="caption">Kenangan #${photoCount} ❤️</div>
+  `;
+  grid.appendChild(box);
+}
+input.addEventListener("change",e=>{
+  [...e.target.files].forEach(addPhoto);
+  e.target.value="";
+});
+
+/* Bintang */
+const canvas=document.getElementById("stars"),ctx=canvas.getContext("2d");
+let stars=[];
+function resize(){
+  canvas.width=innerWidth;canvas.height=innerHeight;
+  stars=Array.from({length:110},()=>({
+    x:Math.random()*canvas.width,y:Math.random()*canvas.height,
+    r:Math.random()*1.5+.3,a:Math.random(),s:Math.random()*.008+.002
+  }));
+}
+function draw(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  stars.forEach(s=>{
+    s.a+=s.s;
+    const alpha=.25+.35*(Math.sin(s.a*8)+1)/2;
+    ctx.fillStyle=`rgba(255,220,232,${alpha})`;
+    ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fill();
+  });
+  requestAnimationFrame(draw);
+}
+addEventListener("resize",resize);resize();draw();
+
+/* Tombol musik: tempatkan file musik sendiri pada variabel src di bawah */
+const music=document.getElementById("music");
+const musicBtn=document.getElementById("musicBtn");
+let playing=false;
+musicBtn.onclick=async()=>{
+  if(!music.src){
+    alert("Tambahkan file musik sendiri pada bagian audio di kode HTML terlebih dahulu.");
+    return;
+  }
+  if(playing){music.pause();musicBtn.textContent="♫";}
+  else{await music.play();musicBtn.textContent="❚❚";}
+  playing=!playing;
+};
+</script>
+</body>
+</html>
